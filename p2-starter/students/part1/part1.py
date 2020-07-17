@@ -3,24 +3,30 @@ from datetime import datetime
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
+# Takes a temperature and returns it in string format with the degrees and celcius symbols.
 def format_temperature(temp):
     return f'{temp}{DEGREE_SYBMOL}'
 
+# Converts and ISO formatted date into a human readable format.
 def convert_date(iso_string):
     d = datetime.strptime(iso_string, "%Y-%m-%d %H:%M:%S%z")
     return d.strftime('%A %d %B %Y')
 
+# Converts an temperature from farenheit to celcius.
 def convert_f_to_c(temp_in_farenheit):
     celcius = (temp_in_farenheit - 32) * 5 / 9
     return celcius
 
+# Calculates the mean.
 def calculate_mean(total, num_items):
     mean = total / num_items
-    return(mean)
+    return mean
 
+# Converts raw weather data into meaningful text.
 def process_weather(forecast_file):
-    with open('forecast_5days_a.json') as forecast_file:
+    with open('forecast_5days_a.json', encoding="utf8") as forecast_file:
         data = json.load(forecast_file)
+        return data
 
 # The overall min temperature, 
 
@@ -31,7 +37,7 @@ for weather in data ['DailyForecasts']:
 
 # and the date this will occur.
     date = convert_date(weather["Date"])
-    if overall_min_temp_f == (weather["Temperature"]["Minimum"]["Value"]):
+    if overall_min_temp_f == weather["Temperature"]["Minimum"]["Value"]:
        low_day = (date) 
 
 # The overall max temperature, 
@@ -41,7 +47,7 @@ for weather in data ['DailyForecasts']:
 
 # and the date this will occur.
     date = convert_date(weather["Date"])
-    if overall_max_temp_f == (weather["Temperature"]["Minimum"]["Value"]):
+    if overall_max_temp_f == weather["Temperature"]["Minimum"]["Value"]:
        high_day = (date) 
 
 # The mean minimum temperature.
@@ -58,38 +64,33 @@ for weather in data ['DailyForecasts']:
     mean_max_c = convert_f_to_c(mean_max_f)
     mean_max = format_temperature(mean_max_c)
 
-    print('5 Day Overview')
-    print(f'\tThe lowest temperature will be {overall_min_temp}, and will occur on {low_day}')    
-    print(f'\tThe highest temperature will be {overall_max_temp}, and will occur on {high_day}')  
-    print(f'\tThe average low this week is {mean_min}') 
-    print(f'\tThe average high this week is {mean_max}\n')
+    final_output = f'5 Day Overview
+    \n\tThe lowest temperature will be {overall_min_temp}, and will occur on {low_day}    
+    \n\tThe highest temperature will be {overall_max_temp}, and will occur on {high_day}\n\tThe average low this week is {mean_min}\n\tThe average high this week is {mean_max}\n'
+
+    return final_output
 
 # A summary of each day:
 for weather in data['DailyForecasts']:
     date = convert_date(weather["Date"])
-    min_temp_f = (weather["Temperature"]["Minimum"]["Value"])
+    min_temp_f = weather["Temperature"]["Minimum"]["Value"]
     min_temp_c = convert_f_to_c(min_temp_f)
     min_temp = format_temperature(min_temp_c)
-    max_temp_f = (weather["Temperature"]["Maximum"]["Value"])
+    max_temp_f = weather["Temperature"]["Maximum"]["Value"]
     max_temp_c = convert_f_to_c(max_temp_f)
     max_temp = format_temperature(max_temp_c)
-    desc = (weather["Day"]["LongPhrase"])
-    rain_chance = (weather["Day"]["RainProbability"])
-    desc_pm = (weather["Night"]["LongPhrase"])
-    rain_chance_pm = (weather["Night"]["RainProbability"])
+    desc = weather["Day"]["LongPhrase"]
+    rain_chance = weather["Day"]["RainProbability"]
+    desc_pm = weather["Night"]["LongPhrase"]
+    rain_chance_pm = weather["Night"]["RainProbability"]
 
 
-    print(f'-------- {date} --------')
-    print(f'Minimum Temperature: {min_temp}')
-    print(f'Maximum Temperature: {max_temp}')
-    print(f'Daytime: {desc}\n\tChance of rain:\t {rain_chance}%')
-    print(f'Nighttime: {desc_pm}\n\tChance of rain:\t {rain_chance_pm}%\n')
+    final_output = f'-------- {date} --------
+    \nMinimum Temperature: {min_temp}\nMaximum Temperature: {max_temp}\nDaytime: {desc}\n\tChance of rain:\t {rain_chance}%
+    \nNighttime: {desc_pm}\n\tChance of rain:\t {rain_chance_pm}%\n'
+
+    return final_output
 
     
 if __name__ == "__main__":
     print(process_weather("data/forecast_5days_a.json"))
-
-
-
-
-
