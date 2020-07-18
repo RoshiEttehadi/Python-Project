@@ -35,6 +35,7 @@ def process_weather(forecast_file):
     rain_chance = []
     desc_pm = []
     rain_chance_pm = []
+
     for weather in data['DailyForecasts']:
         min_temp.append(convert_f_to_c(weather["Temperature"]["Minimum"]["Value"]))
         max_temp.append(convert_f_to_c(weather["Temperature"]["Maximum"]["Value"]))
@@ -53,12 +54,6 @@ def process_weather(forecast_file):
         mean_max_c = sum(max_temp) / len(max_temp)
         mean_max = format_temperature(mean_max_c)
         
-        x=[]
-        for index in range(len(min_temp)):
-            x.append("--------" +date[index]+ "--------")
-            # \nMinimum Temperature:)
-            #  {min_temp}\nMaximum Temperature: {max_temp}\nDaytime: {desc}\n\tChance of rain:\t {rain_chance}%\nNighttime: {desc_pm}\n\tChance of rain:\t {rain_chance_pm}%\n")
-
     # and the date this will occur.
     min_index = min_temp.index(min(min_temp))
     low_day = date [min_index]
@@ -67,16 +62,13 @@ def process_weather(forecast_file):
     max_index = max_temp.index(max(max_temp))
     high_day = date [max_index]
 
-    final_output1 = f'5 Day Overview\n\tThe lowest temperature will be {min(min_temp)}, and will occur on {low_day}\n\tThe highest temperature will be {max(max_temp)}, and will occur on {high_day}\n\tThe average low this week is {mean_min}\n\tThe average high this week is {mean_max}\n'
+    final_output1 = f"""5 Day Overview\n\tThe lowest temperature will be {min(min_temp)}, and will occur on {low_day}\n\tThe highest temperature will be {max(max_temp)}, and will occur on {high_day}\n\tThe average low this week is {mean_min}\n\tThe average high this week is {mean_max}\n"""
 
-    # each_day = []
-
-    # for x in range(len(each_day)):
-    #     each_day.append(f"-------- {date} --------\nMinimum Temperature: {min_temp}\nMaximum Temperature: {max_temp}\nDaytime: {desc}\n\tChance of rain:\t {rain_chance}%\nNighttime: {desc_pm}\n\tChance of rain:\t {rain_chance_pm}%\n")
-
-    final_output2 = x
-
-    return final_output1, final_output2
+    final_output2 = ""
+    for x in range(5):
+        final_output2 = final_output2 + (f"""-------- {date[x]} --------\nMinimum Temperature: {min_temp[x]}\nMaximum Temperature: {max_temp[x]}\nDaytime: {desc[x]}\n\tChance of rain:\t {rain_chance[x]}%\nNighttime: {desc_pm[x]}\n\tChance of rain:\t {rain_chance_pm[x]}%\n""")
+    final_final_output = final_output1 + final_output2    
+    return final_final_output
 
     
 if __name__ == "__main__":
