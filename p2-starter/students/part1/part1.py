@@ -65,11 +65,25 @@ def process_weather(forecast_file):
     max_index = max_temp.index(max(max_temp))
     high_day = date [max_index]
 
-    final_output = f"""{len(date)} Day Overview\n\tThe lowest temperature will be {format_temperature(min(min_temp))}, and will occur on {low_day}.\n\tThe highest temperature will be {format_temperature(max(max_temp))}, and will occur on {high_day}.\n\tThe average low this week is {mean_min}.\n\tThe average high this week is {mean_max}.\n"""
+    final_output = f"""
+    {len(date)} Day Overview
+        The lowest temperature will be {format_temperature(min(min_temp))}, and will occur on {low_day}.
+        The highest temperature will be {format_temperature(max(max_temp))}, and will occur on {high_day}.
+        The average low this week is {mean_min}.
+        The average high this week is {mean_max}.\n
+    """
 
     x = 0
     while x!= len(date):
-        final_output += f"""\n-------- {date[x]} --------\nMinimum Temperature: {format_temperature(min_temp[x])}\nMaximum Temperature: {format_temperature(max_temp[x])}\nDaytime: {desc[x]}\n\tChance of rain:\t {rain_chance[x]}%\nNighttime: {desc_pm[x]}\n\tChance of rain:\t {rain_chance_pm[x]}%\n"""
+        final_output += f"""
+    -------- {date[x]} --------
+    Minimum Temperature: {format_temperature(min_temp[x])}
+    Maximum Temperature: {format_temperature(max_temp[x])}
+    Daytime: {desc[x]}
+        Chance of rain:  {rain_chance[x]}%
+    Nighttime: {desc_pm[x]}
+        Chance of rain:  {rain_chance_pm[x]}%\n
+    """
         x = x + 1
 
     final_output = final_output + "\n"
@@ -80,5 +94,5 @@ def process_weather(forecast_file):
     
 if __name__ == "__main__":
     print(process_weather("data/forecast_5days_a.json"))
-    print(process_weather("data/forecast_5days_b.json"))
-    print(process_weather("data/forecast_10days.json"))
+    # print(process_weather("data/forecast_5days_b.json"))
+    # print(process_weather("data/forecast_10days.json"))
