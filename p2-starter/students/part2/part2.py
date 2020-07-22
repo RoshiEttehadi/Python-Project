@@ -39,17 +39,13 @@ df = {
     "Max_temp": max_temp,
     "Real feel Minimum": real_feel_min,
     "Real feel Shade Minimum": real_feel_shade_min,
-    "Min_Max_Temp": min_temp, max_temp
-    "Labels": Date, Temperature
-    "Min_Real_Feel": min_temp, real_feel_min, real_feel_shade_min
-    }
+}
 
 
 fig1 = px.line(
 df,
 x="Date",
-y="Min_Max_Temp",
-labels="Labels"
+y=["Min_Temp", "Max_temp"],
 title=f'Minimum and Mximum Temperature Forecast for {date[0]} to {date[-1]}')
 
 fig1.write_html("fig1.html")
@@ -62,8 +58,7 @@ fig1.write_html("fig1.html")
 fig2 = px.line(
 df,
 x="Date",
-y="Min_Real_Feel",
-labels="Labels"
+y=["Min_temp", "Real feel Minimum", "Real feel Shade Minimum"],
 title=f"Actual Minimum, Real Feel Minimum, and Real Feel Shade Minimum Forecast for {date[0]} to {date[-1]}"
 )
 
