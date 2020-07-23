@@ -1,6 +1,5 @@
 import json
 import plotly.express as px
-import pandas as pd
 from datetime import datetime
 
 def format_temperature(temp):
@@ -15,7 +14,7 @@ def convert_f_to_c(temp_in_farenheit):
     celcius = round(num, 1)
     return celcius
 
-with open ("data/forecast_10days.json", encoding="utf8") as f:
+with open ("data/forecast_5days_b.json", encoding="utf8") as f:
     data = json.load(f)
 
 # A single time series graph that contains both the minimum and maximum temperatures for each day.
@@ -45,7 +44,7 @@ df = {
 fig1 = px.line(
 df,
 x="Date",
-y=["Min_Temp", "Max_temp"],
+y=["Min_temp", "Max_temp"],
 title=f'Minimum and Mximum Temperature Forecast for {date[0]} to {date[-1]}')
 
 fig1.write_html("fig1.html")
